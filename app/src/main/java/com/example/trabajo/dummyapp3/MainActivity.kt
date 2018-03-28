@@ -109,7 +109,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 Log.d(TAG, "onReceive: " + device.name + ": " + device.address)
                 val mOrigen = "28:BE:03:EF:89:09"
                 if (mOrigen == device.address) {
-                    mBluetoothConnection!!.startClient(device, MY_UUID_INSECURE)
+
+                    startBTConnection(device, MY_UUID_INSECURE)
                 }
             }
         }
@@ -210,7 +211,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
      */
     fun startBTConnection(device: BluetoothDevice, uuid: UUID) {
         Log.d(TAG, "startBTConnection: Initializing RFCOM Bluetooth Connection.")
-
+        mBluetoothConnection = BluetoothConnectionService(this@MainActivity)
         mBluetoothConnection!!.startClient(device, uuid)
     }
 
