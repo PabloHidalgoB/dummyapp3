@@ -18,7 +18,7 @@ import java.util.UUID
  * Created by User on 12/21/2016.
  */
 
-class BluetoothConnectionService(internal var mContext: Context) {
+class BluetoothConnectionService(internal var mContext: Context, private var mMessage : BluetoothConnectionInterface) {
 
     private val mBluetoothAdapter: BluetoothAdapter
 
@@ -246,7 +246,8 @@ class BluetoothConnectionService(internal var mContext: Context) {
                 try {
                     bytes = mmInStream!!.read(buffer)
                     val incomingMessage = String(buffer, 0, bytes)
-                    Log.d(TAG, "InputStream: $incomingMessage")
+                    mMessage.bringMessage(incomingMessage)
+                    //Log.d(TAG, "InputStream: $incomingMessage")
                 } catch (e: IOException) {
                     Log.e(TAG, "write: Error reading Input Stream. " + e.message)
                     break
